@@ -1,0 +1,22 @@
+{
+  "name": "blog-project",
+  "version": "1.0.0",
+  "description": "A blog site",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "blog-project"
+  },
+  "author": "Berkay SARICA",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.2",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "pg": "^8.12.0"
+  }
+}
