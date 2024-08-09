@@ -76,4 +76,19 @@ form {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
+
+.container {
+    margin: 10px 10px;
+    width: 40%;
+}
+
+.user {
+    border: 1px solid black;
+    margin: 0px 0px;
+}
+
+.content {
+    border: 1px solid black;
+    margin: 0px 0px;
+}

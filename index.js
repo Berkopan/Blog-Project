@@ -9,13 +9,14 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-
+env.config();
 const app = express();
 const port = 3000;
-const saltRounds = 12;
-env.config();
+const saltRounds = parseInt(process.env.SALTROUNDS);
+
 
 let user = "";
+let blogs = []
 
 const db = new pg.Client({
     user: process.env.USER_NAME,
@@ -34,7 +35,11 @@ app.get("/", (req, res) => {
 });
 
 app.get("/register", (req, res) => {
-    res.sendFile(__dirname + "/public/register.html");
+    if(user) {
+        res.redirect("/blogs");
+    } else {
+        res.sendFile(__dirname + "/public/register.html");
+    }
 });
 
 app.post("/register", async (req, res) => {
@@ -62,7 +67,11 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "/public/login.html");
+    if(user) {
+        res.redirect("/blogs");
+    } else {
+        res.sendFile(__dirname + "/public/login.html");
+    }
 });
 
 app.post("/login", async(req, res) => {
@@ -74,19 +83,19 @@ app.post("/login", async(req, res) => {
         if (emailCheck.rows.length === 0) {
             res.send("User does not exist. Please register!");
         } else {
-            const result = await db.query("SELECT password FROM users WHERE email = $1", [email]);
-            const hash = result.rows[0].password;
-            console.log("Hash: " + hash);
-            console.log("Password: " + password);
+            const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
+            user = result.rows[0]
+            const hash = user.password;
             
             bcrypt.compare(password, hash, (err, result) => {
                 if(err) {
                     console.log("Error while comparing passwords: " + err);
                 } else {
                     if(result) {
-                        res.send("Login başarılı");
+                        res.redirect("/blogs");
                     } else {
-                        res.send("Yanlış şifre girildi.");
+                        user = "";
+                        res.redirect("/login");
                     }
                 }
             })
@@ -95,6 +104,19 @@ app.post("/login", async(req, res) => {
         console.log("Some server side error: " + err);
     }
 });
+
+app.get("/blogs", (req, res) => {
+    if(user) {
+        res.render("blogs.ejs", {USERNAME: user.username, CONTENT: "DENEME123"});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/logout", (req, res) => {
+    user = "";
+    res.redirect("/login");
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
