@@ -105,7 +105,7 @@ form {
 .content {
     border: 1px solid black;
     margin: 0px 0px;
-    height: 150px;
+    min-height: 150px;
 }
 
 textarea {
@@ -116,4 +116,8 @@ textarea {
     padding: 10px; /* İç boşluk */
     resize: none; /* Kullanıcının boyutu manuel olarak değiştirmesini engeller */
     box-sizing: border-box; /* Padding ve border dahil genişlik hesaplaması */
+}
+
+form p {
+    color: red;
 }

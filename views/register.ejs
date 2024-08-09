@@ -16,14 +16,15 @@
     <div class="inner-box">
         <form action="/register" method="post">
             <h2>Register</h2>
+            <p><%= ERROR %></p>
             <hr>
             <div>
                 <label for="username">Username:</label>
-                <input type="text" placeholder="Enter username" id="username" name="username" required>
+                <input type="text" placeholder="Enter username" id="username" name="username" value="<%= USERNAME %>" required>
             </div>
             <div>
                 <label for="email">Email:</label>
-                <input type="text" placeholder="Enter Email" id="email" name="email" required>
+                <input type="text" placeholder="Enter Email" id="email" name="email" value="<%= EMAIL %>" required>
             </div>
             <div>
                 <label for="password">Password:</label>

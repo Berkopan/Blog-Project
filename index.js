@@ -38,7 +38,7 @@ app.get("/register", (req, res) => {
     if(user) {
         res.redirect("/blogs");
     } else {
-        res.sendFile(__dirname + "/public/register.html");
+        res.render("register.ejs", {ERROR: "", USERNAME: "", EMAIL: ""});
     }
 });
 
@@ -50,16 +50,23 @@ app.post("/register", async (req, res) => {
     try {
         const emailCheck = await db.query("SELECT * FROM users WHERE email = $1", [email]);
         if (emailCheck.rows.length > 0) {
-            res.send("Email already exists!");
+            res.render("register.ejs", {ERROR: "Email already exists!", USERNAME: username, EMAIL: ""});
         } else {
-            bcrypt.hash(password, saltRounds, async (err, hash) => {
-                if(err) {
-                    console.log("Some errors while hashing: " + err);
-                } else {
-                    await db.query("INSERT INTO users (username, email, password) VALUES ($1 ,$2 ,$3)", [username, email, hash]);
-                    res.send("Register başarılı");
-                }
-            })
+            const usernameCheck = await db.query("SELECT * FROM users WHERE username = $1", [username]);
+            if(usernameCheck.rows.length > 0) {
+                res.render("register.ejs", {ERROR: "Please choose another username.", USERNAME: "", EMAIL: email});
+            } else {
+                bcrypt.hash(password, saltRounds, async (err, hash) => {
+                    if(err) {
+                        console.log("Some errors while hashing: " + err);
+                    } else {
+                        await db.query("INSERT INTO users (username, email, password) VALUES ($1 ,$2 ,$3)", [username, email, hash]);
+                        const result = await db.query("SELECT * FROM users WHERE email= $1", [email]);
+                        user = result.rows[0];
+                        res.redirect("/blogs");
+                    }
+                })
+            }
         }
     } catch (error) {
         console.log(err);
@@ -70,7 +77,7 @@ app.get("/login", (req, res) => {
     if(user) {
         res.redirect("/blogs");
     } else {
-        res.sendFile(__dirname + "/public/login.html");
+        res.render("login.ejs", {ERROR: "", EMAIL: ""});
     }
 });
 
@@ -81,7 +88,7 @@ app.post("/login", async(req, res) => {
     try {
         const emailCheck = await db.query("SELECT * FROM users WHERE email = $1", [email]);
         if (emailCheck.rows.length === 0) {
-            res.send("User does not exist. Please register!");
+            res.render("login.ejs", {ERROR: "User does not exist. Please register!", EMAIL:""});
         } else {
             const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
             user = result.rows[0]
@@ -95,7 +102,7 @@ app.post("/login", async(req, res) => {
                         res.redirect("/blogs");
                     } else {
                         user = "";
-                        res.redirect("/login");
+                        res.render("login.ejs", {ERROR: "Wrong Password!", EMAIL: email});
                     }
                 }
             })
@@ -121,7 +128,12 @@ app.get("/logout", (req, res) => {
 })
 
 app.get("/create", (req, res) => {
-    res.sendFile(__dirname + "/public/new.html");
+    if(user) {
+        res.sendFile(__dirname + "/public/new.html");
+    } else {
+        res.redirect("/login");
+    }
+    
 });
 
 app.post("/create", async (req, res) => {
