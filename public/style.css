@@ -7,8 +7,9 @@
     height: 3rem;
 }
 
-.topnav h1 {
+.topnav h1, .topnav h2 {
     display: inline;
+    color: white;
 }
 
 .topnav a {
@@ -78,17 +79,41 @@ form {
     align-items: center;
 }
 
+.main-container{
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
 .container {
-    margin: 10px 10px;
+    margin: 15px 30px;
     width: 40%;
+}
+
+.title {
+    border: 1px solid black;
+    margin: 0px 0px;
+    text-align: center;
 }
 
 .user {
     border: 1px solid black;
     margin: 0px 0px;
+    text-align: right;
 }
 
 .content {
     border: 1px solid black;
     margin: 0px 0px;
+    height: 150px;
+}
+
+textarea {
+    background-color: #333;
+    color: white;
+    width: 100%; /* Genişliği ayarlayın */
+    height: 100px; /* Yüksekliği ayarlayın */
+    padding: 10px; /* İç boşluk */
+    resize: none; /* Kullanıcının boyutu manuel olarak değiştirmesini engeller */
+    box-sizing: border-box; /* Padding ve border dahil genişlik hesaplaması */
 }

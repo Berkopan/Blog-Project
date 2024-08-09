@@ -107,7 +107,7 @@ app.post("/login", async(req, res) => {
 
 app.get("/blogs", (req, res) => {
     if(user) {
-        res.render("blogs.ejs", {USERNAME: user.username, CONTENT: "DENEME123"});
+        res.render("blogs.ejs", {TITLE: "BAŞLIK", USERNAME: user.username, CONTENT: "DENEME123"});
     } else {
         res.redirect("/login");
     }
@@ -117,6 +117,10 @@ app.get("/logout", (req, res) => {
     user = "";
     res.redirect("/login");
 })
+
+app.get("/create", (req, res) => {
+    res.sendFile(__dirname + "/public/new.html");
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
