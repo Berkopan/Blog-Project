@@ -18,16 +18,16 @@
         </div>
     </div>
     <div class="main-container">
-        <% for( let index=0; index < 15; index++ ) { %>
+        <% for( let index=0; index < DATA.length; index++ ) { %>
         <div class="container">
             <div class="title">
-                <%= TITLE %>
+                <%= DATA[index].title %>
             </div>
             <div class="content">
-                <%= CONTENT %>
+                <%= DATA[index].content %>
             </div>
             <div class="user">
-                <%= USERNAME %>
+                <%= DATA[index].username %>
             </div>
         </div>
     <% } %>

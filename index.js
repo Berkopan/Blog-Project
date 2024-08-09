@@ -105,9 +105,11 @@ app.post("/login", async(req, res) => {
     }
 });
 
-app.get("/blogs", (req, res) => {
+app.get("/blogs", async (req, res) => {
     if(user) {
-        res.render("blogs.ejs", {TITLE: "BAŞLIK", USERNAME: user.username, CONTENT: "DENEME123"});
+        const blogs = await db.query("SELECT * FROM blogs");
+
+        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username});
     } else {
         res.redirect("/login");
     }
@@ -121,6 +123,17 @@ app.get("/logout", (req, res) => {
 app.get("/create", (req, res) => {
     res.sendFile(__dirname + "/public/new.html");
 });
+
+app.post("/create", async (req, res) => {
+    const title = req.body.title;
+    const content = req.body.content;
+
+    await db.query("INSERT INTO blogs (user_id, username, content, title) VALUES ($1, $2, $3, $4)", 
+        [user.id, user.username, content, title]
+    );
+
+    res.redirect("/blogs");
+})
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
