@@ -36,7 +36,7 @@ app.get("/", (req, res) => {
 
 app.get("/register", (req, res) => {
     if(user) {
-        res.redirect("/blogs");
+        res.redirect("/Blogs");
     } else {
         res.render("register.ejs", {ERROR: "", USERNAME: "", EMAIL: ""});
     }
@@ -63,7 +63,7 @@ app.post("/register", async (req, res) => {
                         await db.query("INSERT INTO users (username, email, password) VALUES ($1 ,$2 ,$3)", [username, email, hash]);
                         const result = await db.query("SELECT * FROM users WHERE email= $1", [email]);
                         user = result.rows[0];
-                        res.redirect("/blogs");
+                        res.redirect("/Blogs");
                     }
                 })
             }
@@ -75,7 +75,7 @@ app.post("/register", async (req, res) => {
 
 app.get("/login", (req, res) => {
     if(user) {
-        res.redirect("/blogs");
+        res.redirect("/Blogs");
     } else {
         res.render("login.ejs", {ERROR: "", EMAIL: ""});
     }
@@ -99,7 +99,7 @@ app.post("/login", async(req, res) => {
                     console.log("Error while comparing passwords: " + err);
                 } else {
                     if(result) {
-                        res.redirect("/blogs");
+                        res.redirect("/Blogs");
                     } else {
                         user = "";
                         res.render("login.ejs", {ERROR: "Wrong Password!", EMAIL: email});
@@ -112,11 +112,21 @@ app.post("/login", async(req, res) => {
     }
 });
 
-app.get("/blogs", async (req, res) => {
+app.get("/Blogs", async (req, res) => {
     if(user) {
         const blogs = await db.query("SELECT * FROM blogs");
 
-        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username});
+        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "My Blogs"});
+    } else {
+        res.redirect("/login");
+    }
+});
+
+app.get("/myBlogs", async (req, res) => {
+    if(user) {
+        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1", [user.id]);
+
+        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "Blogs"});
     } else {
         res.redirect("/login");
     }
@@ -144,7 +154,7 @@ app.post("/create", async (req, res) => {
         [user.id, user.username, content, title]
     );
 
-    res.redirect("/blogs");
+    res.redirect("/Blogs");
 })
 
 app.listen(port, () => {

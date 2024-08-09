@@ -15,6 +15,11 @@
         <div>
             <a href="/logout">Log Out</a>
             <a href="/create">New Blog</a>
+            <% if (BUTTON === "My Blogs") { %>
+                <a href="myBlogs"><%= BUTTON %></a>
+            <% }else{ %>
+            <a href="/blogs"><%= BUTTON %></a>
+            <% } %>
         </div>
     </div>
     <div class="main-container">
