@@ -59,6 +59,10 @@ app.post("/register", async (req, res) => {
     }
 })
 
+app.get("/login", (req, res) => {
+    res.sendFile(__dirname + "/public/login.html");
+})
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });
