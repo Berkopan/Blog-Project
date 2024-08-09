@@ -16,7 +16,6 @@ const saltRounds = parseInt(process.env.SALTROUNDS);
 
 
 let user = "";
-let blogs = []
 
 const db = new pg.Client({
     user: process.env.USER_NAME,
@@ -114,7 +113,7 @@ app.post("/login", async(req, res) => {
 
 app.get("/Blogs", async (req, res) => {
     if(user) {
-        const blogs = await db.query("SELECT * FROM blogs");
+        const blogs = await db.query("SELECT * FROM blogs ORDER BY id ASC");
 
         res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "My Blogs"});
     } else {
@@ -124,7 +123,7 @@ app.get("/Blogs", async (req, res) => {
 
 app.get("/myBlogs", async (req, res) => {
     if(user) {
-        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1", [user.id]);
+        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1 ORDER BY id ASC", [user.id]);
 
         res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "Blogs"});
     } else {
@@ -155,7 +154,31 @@ app.post("/create", async (req, res) => {
     );
 
     res.redirect("/Blogs");
+});
+
+app.post("/edit", (req, res) => {
+    if(user) {
+        const title = req.body.title;
+        const content = req.body.content;
+        const id = req.body.BlogId;
+
+        res.render("edit.ejs", {TITLE: title, CONTENT: content, ID: id});
+    } else {
+        res.redirect("/login");
+    }
 })
+
+app.post("/editPost", async (req, res) => {
+    const title = req.body.title;
+    const content = req.body.content;
+    const id = parseInt(req.body.blogId);
+    try {
+        await db.query("UPDATE blogs SET content = $1, title = $2 WHERE id = $3;", [content, title, id]);
+        res.redirect("/myBlogs");
+    } catch (error) {
+        console.log(error);
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);

@@ -34,6 +34,14 @@
             <div class="user">
                 <%= DATA[index].username %>
             </div>
+            <% if(BUTTON === "Blogs") {%>
+                <form action="/edit" method="post">
+                    <input type="hidden" name="title" value= "<%= DATA[index].title %>">
+                    <input type="hidden" name="content" value= "<%= DATA[index].content %>">
+                    <input type="hidden" name="BlogId" value= "<%= DATA[index].id %>">
+                    <input type="submit" value="Edit" class="edit">
+                </form>
+            <% } %>
         </div>
     <% } %>
     </div>

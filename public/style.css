@@ -121,3 +121,9 @@ textarea {
 form p {
     color: red;
 }
+
+.edit {
+    width: auto;
+    margin-top: 0px;
+    float: left;
+}
