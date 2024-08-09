@@ -73,16 +73,21 @@ form {
     padding: 10px;
     margin-top: 1rem;
     width: 40%;
-  
+    background-color: #988f8f;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .main-container{
+    margin: 0px 0px;
     display: flex;
     flex-wrap: wrap;
+    background-color: #decdcd;
+}
 
+html {
+    background-color: #decdcd;
 }
 
 .container {
@@ -94,18 +99,27 @@ form {
     border: 1px solid black;
     margin: 0px 0px;
     text-align: center;
+    padding: 10px 0px;
+    border-radius: 10px 10px 0px 0px;
+    background-color: #988f8f;
 }
 
 .user {
     border: 1px solid black;
     margin: 0px 0px;
     text-align: right;
+    padding-right: 5px;
+    border-radius: 0px 0px 10px 10px;
+    background-color: #988f8f;
+
 }
 
 .content {
     border: 1px solid black;
     margin: 0px 0px;
     min-height: 150px;
+    padding: 10px 10px;
+    background-color: #c6bebe;
 }
 
 textarea {
