@@ -180,6 +180,18 @@ app.post("/editPost", async (req, res) => {
     }
 });
 
+app.post("/delete", async (req, res) => {
+    const id = req.body.id;
+
+    try {
+        await db.query("DELETE FROM blogs WHERE id = $1", [id]);
+
+        res.redirect("/myBlogs");
+    } catch (error) {
+        console.log("Error while deleting blog: " + error);
+    }
+});
+
 app.listen(port, () => {
     console.log(`Server running on port ${port}`);
 });

@@ -141,7 +141,8 @@ form p {
     color: red;
 }
 
-.edit {
+.edit, .delete{
+    margin-right: 10px;
     width: auto;
     margin-top: 0px;
     float: left;

@@ -41,6 +41,10 @@
                     <input type="hidden" name="BlogId" value= "<%= DATA[index].id %>">
                     <input type="submit" value="Edit" class="edit">
                 </form>
+                <form action="/delete" method="post">
+                    <input type="hidden" name="id" value= "<%= DATA[index].id %>">
+                    <input type="submit" value="Delete" class="delete">
+                </form>
             <% } %>
         </div>
     <% } %>
