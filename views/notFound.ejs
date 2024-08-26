@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page not found</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div style="display: flex; height: 100vh; align-items: center; margin-top: 100px; flex-direction: column;">
+        <h1>Oops! The page you were looking for doesn't exist.</h1>
+        <div>
+            <form style="display: flex; align-items: center;" action="/login" method="get">
+                <% if(USER) { %>
+                <input style="width: fit-content;" type="submit" value="Return to blogs page">
+                <% }else { %>
+                <input style="width: fit-content;" type="submit" value="Return to login page">
+                <% } %>
+            </form>
+        </div>
+    </div>
+</body>
+</html>
