@@ -48,27 +48,6 @@ label {
     font-size: 20px;
 }
 
-input {
-    margin: 10px 0px;
-    width: 100%;
-}
-
-input[type=text],
-input[type=password],
-input[type=email] {
-    background-color: #333;
-    color: white;
-}
-
-.submit {
-    margin: 10px 0px;
-}
-
-form {
-    width: 100%;
-    margin: 10px 10px;
-}
-
 .inner-box {
     border: 1px solid black;
     border-radius: 10px;
@@ -108,10 +87,6 @@ textarea {
     box-sizing: border-box;
 }
 
-form p {
-    color: red;
-}
-
 .edit, .delete{
     margin-right: 10px;
     width: auto;
@@ -143,16 +118,8 @@ body, html {
     justify-content: space-between;
 }
 
-.title{
-
-}
-
 .title h2 {
     margin: 0px
-}
-
-.content{
-
 }
 
 .author{
@@ -161,4 +128,60 @@ body, html {
 
 .author h3 {
     margin: 0px
+}
+
+.container{
+    display: flex;
+    justify-content: center;
+    margin-top: 200px;
+    transform: scale(2);
+}
+
+.login-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+    width: fit-content;
+    padding: 20px;
+    border: 0.5px solid rgb(0, 0, 0, 0.5);
+}
+
+svg {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.input-container{
+    display: flex;
+    align-items: center;
+}
+
+.input-container input{
+    border: none;
+    outline: none;
+
+    border-bottom: 1px solid black;
+}
+
+.submit {
+    width: 100%;
+}
+
+.submit input {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 12px;
+}
+
+.submit input:hover{
+    color: white;
+    background-color: green;
+}
+
+.login-error{
+    color: red;
+    font-size: xx-small;
+    margin: 0px;
 }
