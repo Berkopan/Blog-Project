@@ -29,18 +29,20 @@ db.connect();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
+// Redirecting to register page.
 app.get("/", (req, res) => {
     res.redirect("/register");
 });
 
 app.get("/register", (req, res) => {
-    if(user) {
+    if(user) { // If user has logged in,
         res.redirect("/Blogs");
     } else {
         res.render("register.ejs", {ERROR: "", USERNAME: "", EMAIL: ""});
     }
 });
 
+//Evaluating register post request.
 app.post("/register", async (req, res) => {
     const username = req.body.username;
     const email = req.body.email;
@@ -48,18 +50,18 @@ app.post("/register", async (req, res) => {
 
     try {
         const emailCheck = await db.query("SELECT * FROM users WHERE email = $1", [email]);
-        if (emailCheck.rows.length > 0) {
+        if (emailCheck.rows.length > 0) {  // Checking that given email has already exist or not.
             res.render("register.ejs", {ERROR: "Email already exists!", USERNAME: username, EMAIL: ""});
         } else {
             const usernameCheck = await db.query("SELECT * FROM users WHERE username = $1", [username]);
-            if(usernameCheck.rows.length > 0) {
+            if(usernameCheck.rows.length > 0) { // Checking that given username has already exist or not.
                 res.render("register.ejs", {ERROR: "Please choose another username.", USERNAME: "", EMAIL: email});
-            } else {
-                bcrypt.hash(password, saltRounds, async (err, hash) => {
+            } else { // If everything is true,
+                bcrypt.hash(password, saltRounds, async (err, hash) => { // Hashing the givven password
                     if(err) {
                         console.log("Some errors while hashing: " + err);
                     } else {
-                        await db.query("INSERT INTO users (username, email, password) VALUES ($1 ,$2 ,$3)", [username, email, hash]);
+                        await db.query("INSERT INTO users (username, email, password) VALUES ($1 ,$2 ,$3)", [username, email, hash]); // Storing the password in the database.
                         const result = await db.query("SELECT * FROM users WHERE email= $1", [email]);
                         user = result.rows[0];
                         res.redirect("/Blogs");
@@ -73,27 +75,29 @@ app.post("/register", async (req, res) => {
 });
 
 app.get("/login", (req, res) => {
-    if(user) {
+    if(user) { // If user has already logged in,
         res.redirect("/Blogs");
     } else {
         res.render("login.ejs", {ERROR: "", EMAIL: ""});
     }
 });
 
+
+// Evaluating the login post request.
 app.post("/login", async(req, res) => {
     const email = req.body.email;
     const password = req.body.password;
 
     try {
         const emailCheck = await db.query("SELECT * FROM users WHERE email = $1", [email]);
-        if (emailCheck.rows.length === 0) {
+        if (emailCheck.rows.length === 0) { // Checking that given email has exist or not.
             res.render("login.ejs", {ERROR: "User does not exist. Please register!", EMAIL:""});
         } else {
             const result = await db.query("SELECT * FROM users WHERE email = $1", [email]);
             user = result.rows[0]
             const hash = user.password;
             
-            bcrypt.compare(password, hash, (err, result) => {
+            bcrypt.compare(password, hash, (err, result) => { // Comparing the given password and the actual password of the account.
                 if(err) {
                     console.log("Error while comparing passwords: " + err);
                 } else {
@@ -115,7 +119,7 @@ app.get("/Blogs", async (req, res) => {
     if(user) {
         const blogs = await db.query("SELECT * FROM blogs ORDER BY id ASC");
 
-        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "My Blogs"});
+        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "My Blogs"}); // Rendering all the blogs in the database.
     } else {
         res.redirect("/login");
     }
@@ -123,9 +127,9 @@ app.get("/Blogs", async (req, res) => {
 
 app.get("/myBlogs", async (req, res) => {
     if(user) {
-        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1 ORDER BY id ASC", [user.id]);
+        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1 ORDER BY id ASC", [user.id]); 
 
-        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "Blogs"});
+        res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "Blogs"});// Rendering blogs which has written by the user from database. 
     } else {
         res.redirect("/login");
     }
@@ -136,7 +140,8 @@ app.get("/logout", (req, res) => {
     res.redirect("/login");
 })
 
-app.get("/create", (req, res) => {
+// Creating a post.
+app.get("/create", (req, res) => { 
     if(user) {
         res.sendFile(__dirname + "/public/new.html");
     } else {
@@ -145,10 +150,13 @@ app.get("/create", (req, res) => {
     
 });
 
+
+// Evaluating the create post request.
 app.post("/create", async (req, res) => {
     const title = req.body.title;
     const content = req.body.content;
 
+    // Adding the post to database.
     await db.query("INSERT INTO blogs (user_id, username, content, title) VALUES ($1, $2, $3, $4)", 
         [user.id, user.username, content, title]
     );
@@ -156,6 +164,8 @@ app.post("/create", async (req, res) => {
     res.redirect("/Blogs");
 });
 
+
+// Evaluating the edit request.
 app.post("/edit", (req, res) => {
     if(user) {
         const title = req.body.title;
@@ -168,23 +178,27 @@ app.post("/edit", (req, res) => {
     }
 })
 
+
+// Evaluating the edit post request.
 app.post("/editPost", async (req, res) => {
     const title = req.body.title;
     const content = req.body.content;
     const id = parseInt(req.body.blogId);
     try {
-        await db.query("UPDATE blogs SET content = $1, title = $2 WHERE id = $3;", [content, title, id]);
+        await db.query("UPDATE blogs SET content = $1, title = $2 WHERE id = $3;", [content, title, id]); // Changing the post.
         res.redirect("/myBlogs");
     } catch (error) {
         console.log(error);
     }
 });
 
+
+// Deleting a post.
 app.post("/delete", async (req, res) => {
     const id = req.body.id;
 
     try {
-        await db.query("DELETE FROM blogs WHERE id = $1", [id]);
+        await db.query("DELETE FROM blogs WHERE id = $1", [id]); // Deleting the post from database.
 
         res.redirect("/myBlogs");
     } catch (error) {
@@ -192,6 +206,8 @@ app.post("/delete", async (req, res) => {
     }
 });
 
+
+// Catching possible 404 errors.
 app.get('*', function(req, res){
     if(user) {
         res.status(404).render("notFound.ejs", {USER: true});
