@@ -15,7 +15,7 @@
     </div>
     <div class="container">
         <form action="/login" method="post">
-            <div class="login-container">
+            <div class="login-register-container">
                 <div class="input-container">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                         stroke="currentColor" class="size-6">
@@ -33,7 +33,7 @@
                     <input type="password" placeholder="Password" name="password" required>
                 </div>
                 <% if(ERROR) {%>
-                <p class="login-error"><%= ERROR %></p>
+                <p class="login-register-error"><%= ERROR %></p>
                 <% } %>
                 <div class="submit">
                     <input type="submit" value="Login">

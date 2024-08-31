@@ -137,7 +137,7 @@ body, html {
     transform: scale(2);
 }
 
-.login-container{
+.login-register-container{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -180,7 +180,7 @@ svg {
     background-color: green;
 }
 
-.login-error{
+.login-register-error{
     color: red;
     font-size: xx-small;
     margin: 0px;
