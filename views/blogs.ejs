@@ -10,8 +10,10 @@
 
 <body>
     <div class="topnav">
-        <h1>Blog Site</h1>
-        <h2><%= USERNAME %></h2>
+        <div>
+            <h1>Blog Site      </h1>
+            <h2><%= USERNAME %></h2>
+        </div>
         <div>
             <a href="/logout">Log Out</a>
             <a href="/create">New Blog</a>
@@ -22,17 +24,18 @@
             <% } %>
         </div>
     </div>
-    <div class="main-container">
+    
+    <div class="post-container">
         <% for( let index=0; index < DATA.length; index++ ) { %>
-        <div class="container">
+        <div class="post">
             <div class="title">
-                <%= DATA[index].title %>
+                <h2><%= DATA[index].title %></h2>
             </div>
             <div class="content">
-                <%= DATA[index].content %>
+                <p><%= DATA[index].content %></p>
             </div>
-            <div class="user">
-                <%= DATA[index].username %>
+            <div class="author">
+                <h3><%= DATA[index].username %></h3>
             </div>
             <% if(BUTTON === "Blogs") {%>
                 <form action="/edit" method="post">
@@ -47,7 +50,7 @@
                 </form>
             <% } %>
         </div>
-    <% } %>
+        <% } %>
     </div>
     
 </body>

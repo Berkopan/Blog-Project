@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
 .topnav {
     background-color: #333;
     overflow: hidden;
@@ -30,21 +36,14 @@
     color: black;
 }
 
-.topnav a.active {
-    background-color: #04AA6D;
-    color: white;
-}
-
 .box {
     display: flex;
     justify-content: center;
     margin-top: 5rem;
 }
 
-
-
 label {
-    margin: 10px px;
+    margin: 10px 0px;
     padding: 10px 0px;
     font-size: 20px;
 }
@@ -89,24 +88,6 @@ form {
     background-color: #decdcd;
 }
 
-html {
-    background-color: #decdcd;
-}
-
-.container {
-    margin: 15px 30px;
-    width: 40%;
-}
-
-.title {
-    border: 1px solid black;
-    margin: 0px 0px;
-    text-align: center;
-    padding: 10px 0px;
-    border-radius: 10px 10px 0px 0px;
-    background-color: #988f8f;
-}
-
 .user {
     border: 1px solid black;
     margin: 0px 0px;
@@ -115,14 +96,6 @@ html {
     border-radius: 0px 0px 10px 10px;
     background-color: #988f8f;
 
-}
-
-.content {
-    border: 1px solid black;
-    margin: 0px 0px;
-    min-height: 150px;
-    padding: 10px 10px;
-    background-color: #c6bebe;
 }
 
 textarea {
@@ -149,4 +122,43 @@ form p {
 body, html {
     margin: 0;
     padding: 0;
+}
+
+.post-container{
+    position: absolute;
+    top: 10%;
+    left: 20%;
+    font-family: 'Roboto', sans-serif;
+}
+
+.post{
+    border: 1.5px solid rgba(0, 0, 0, 0.2);
+    padding: 25px 20px;
+    margin: 15px 0px;
+    max-width: 1100px;
+    min-height: 200px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.title{
+
+}
+
+.title h2 {
+    margin: 0px
+}
+
+.content{
+
+}
+
+.author{
+    color: rgba(0, 0, 0, 0.6)
+}
+
+.author h3 {
+    margin: 0px
 }
