@@ -34,7 +34,7 @@ Bu proje, Node.js ve Express kullanarak oluşturulmuş basit bir blog sitesidir.
    id SERIAL PRIMARY KEY,
    user_id INT NOT NULL,
    username VARCHAR(30) NOT NULL,
-   content TEXT NOT NULL
+   content TEXT NOT NULL,
    title VARCHAR(60) NOT NULL
    );
    ```
