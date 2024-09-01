@@ -211,8 +211,9 @@ app.post("/delete", async (req, res) => {
 app.get('*', function(req, res){
     if(user) {
         res.status(404).render("notFound.ejs", {USER: true});
-    }
+    } else {
     res.status(404).render("notFound.ejs", {USER: false});
+    }
 });
 
 app.listen(port, () => {
