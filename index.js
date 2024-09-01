@@ -117,7 +117,7 @@ app.post("/login", async(req, res) => {
 
 app.get("/Blogs", async (req, res) => {
     if(user) {
-        const blogs = await db.query("SELECT * FROM blogs ORDER BY id ASC");
+        const blogs = await db.query("SELECT * FROM blogs ORDER BY id DESC");
 
         res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "My Blogs"}); // Rendering all the blogs in the database.
     } else {

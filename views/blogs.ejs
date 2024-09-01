@@ -12,13 +12,8 @@
     <div class="topnav">
         <div>
             <h1>Blog Site </h1>
-            <h2>
-                <%= USERNAME %>
-            </h2>
         </div>
         <div>
-            <a href="/logout">Log Out</a>
-            <a href="/create">New Blog</a>
             <% if (BUTTON==="My Blogs" ) { %>
                 <a href="myBlogs">
                     <%= BUTTON %>
@@ -28,6 +23,11 @@
                         <%= BUTTON %>
                     </a>
                     <% } %>
+                        <a href="/create">Create Blog</a>
+                        <a href="/logout">Log Out</a>
+                        <h2>
+                            <%= USERNAME %>
+                        </h2>
         </div>
     </div>
 

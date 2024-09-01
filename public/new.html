@@ -13,12 +13,11 @@
    </div>
     <div class="box">
         <div class="inner-box">
-            <form action="/create" method="post">
-                <label for="title">Title:</label>
-                <input type="text" name="title">
-                <label for="content">Content:</label>
-                <textarea name="content"></textarea>
-                <input type="submit" value="Create">    
+            <form class="edit-form" action="/create" method="post">
+                <input class="edit-title" type="text" name="title" placeholder="Title">
+                <hr>
+                <textarea name="content" placeholder="Content"></textarea>
+                <input class="save-btn" type="submit" value="Create">    
             </form>
         </div>
     </div>

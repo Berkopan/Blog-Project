@@ -14,6 +14,7 @@ body {
 }
 
 .topnav h1, .topnav h2 {
+    margin: 10px;
     display: inline;
     color: white;
 }
@@ -36,28 +37,52 @@ body {
     color: black;
 }
 
+.topnav div {
+    display: flex;
+    align-items: center;
+}
+
 .box {
     display: flex;
     justify-content: center;
     margin-top: 5rem;
 }
 
-label {
-    margin: 10px 0px;
-    padding: 10px 0px;
-    font-size: 20px;
-}
-
 .inner-box {
-    border: 1px solid black;
-    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
     padding: 10px;
     margin-top: 1rem;
-    width: 40%;
-    background-color: #988f8f;
+    width: 50%;
     display: flex;
-    justify-content: center;
     align-items: center;
+}
+
+.edit-form{
+    width: 100%;
+    padding: 10px;
+}
+
+.edit-title{
+    width: 100%;
+    border: none;
+}
+
+textarea {
+    border: none;
+    background-color: none;
+    width: 100%;
+    height: 300px;
+    resize: none;
+    box-sizing: border-box;
+}
+
+.save-btn{
+    background-color: white;
+    border: 2px solid rgb(0, 0, 0, 0.4);
+}
+
+.save-btn:hover{
+    border: 2px solid rgb(0, 0, 0, 0.7);
 }
 
 .main-container{
@@ -77,22 +102,7 @@ label {
 
 }
 
-textarea {
-    background-color: #333;
-    color: white;
-    width: 100%;
-    height: 100px;
-    padding: 10px;
-    resize: none;
-    box-sizing: border-box;
-}
 
-.edit, .delete{
-    margin-right: 10px;
-    width: auto;
-    margin-top: 0px;
-    float: left;
-}
 
 body, html {
     margin: 0;
@@ -103,7 +113,6 @@ body, html {
     position: absolute;
     top: 10%;
     left: 20%;
-    font-family: 'Roboto', sans-serif;
 }
 
 .post{
