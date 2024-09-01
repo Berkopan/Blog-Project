@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blogs</title>
+    <title><%= BUTTON %></title>
     <link rel="stylesheet" href="/style.css">
 </head>
 
@@ -14,20 +14,16 @@
             <h1>Blog Site </h1>
         </div>
         <div>
-            <% if (BUTTON==="My Blogs" ) { %>
+            <% if (BUTTON==="My Blogs") { %>
                 <a href="myBlogs">
                     <%= BUTTON %>
                 </a>
-                <% }else{ %>
-                    <a href="/blogs">
-                        <%= BUTTON %>
-                    </a>
-                    <% } %>
-                        <a href="/create">Create Blog</a>
-                        <a href="/logout">Log Out</a>
-                        <h2>
-                            <%= USERNAME %>
-                        </h2>
+            <% }else{ %>
+                <a href="/blogs"><%= BUTTON %></a>
+            <% } %>
+            <a href="/create">Create Blog</a>
+            <a href="/logout">Log Out</a>
+            <h2><%= USERNAME %></h2>
         </div>
     </div>
 
@@ -49,7 +45,7 @@
                         <%= DATA[index].username %>
                     </h3>
                 </div>
-                <% if(BUTTON==="Blogs" ) {%>
+                <% if(BUTTON==="Blogs") {%>
                     <div>
                         <form action="/edit" method="post">
                             <input type="hidden" name="title" value="<%= DATA[index].title %>">
@@ -74,9 +70,9 @@
                             </button>
                         </form>
                     </div>
-                    <% } %>
+                <% } %>
             </div>
-            <% } %>
+        <% } %>
     </div>
 
 </body>

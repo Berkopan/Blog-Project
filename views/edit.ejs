@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <title>Edit Post</title>
 </head>
 <body>
     <div class="topnav">
@@ -21,9 +21,9 @@
     <div class="box">
         <div class="inner-box">
             <form class="edit-form" action="/editPost" method="post">
-                <input class="edit-title" type="text" name="title" placeholder="Title" value="<%= TITLE %>">
+                <input class="edit-title" type="text" name="title" placeholder="Title" value="<%= TITLE %>" required>
                 <hr>
-                <textarea name="content"><%= CONTENT %></textarea>
+                <textarea name="content" required><%= CONTENT %></textarea>
                 <input type="hidden" name="blogId" value="<%= ID %>">
                 <input class="save-btn" type="submit" value="Save">    
             </form>

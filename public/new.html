@@ -11,12 +11,13 @@
         <h1>Blog Site</h1>
         <a href="/blogs">Blogs</a>
    </div>
+
     <div class="box">
         <div class="inner-box">
             <form class="edit-form" action="/create" method="post">
-                <input class="edit-title" type="text" name="title" placeholder="Title">
+                <input class="edit-title" type="text" name="title" placeholder="Title" required>
                 <hr>
-                <textarea name="content" placeholder="Content"></textarea>
+                <textarea name="content" placeholder="Content" required></textarea>
                 <input class="save-btn" type="submit" value="Create">    
             </form>
         </div>

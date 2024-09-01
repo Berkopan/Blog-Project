@@ -4,6 +4,11 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+body, html {
+    margin: 0;
+    padding: 0;
+}
+
 .topnav {
     background-color: #333;
     overflow: hidden;
@@ -25,7 +30,7 @@ body {
 
 .topnav a {
     float: right;
-    color: #f2f2f2;
+    color: white;
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
@@ -33,7 +38,7 @@ body {
 }
 
 .topnav a:hover {
-    background-color: #ddd;
+    background-color: white;
     color: black;
 }
 
@@ -85,30 +90,6 @@ textarea {
     border: 2px solid rgb(0, 0, 0, 0.7);
 }
 
-.main-container{
-    margin: 0px 0px;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #decdcd;
-}
-
-.user {
-    border: 1px solid black;
-    margin: 0px 0px;
-    text-align: right;
-    padding-right: 5px;
-    border-radius: 0px 0px 10px 10px;
-    background-color: #988f8f;
-
-}
-
-
-
-body, html {
-    margin: 0;
-    padding: 0;
-}
-
 .post-container{
     position: absolute;
     top: 10%;
@@ -121,22 +102,18 @@ body, html {
     margin: 15px 0px;
     max-width: 1100px;
     min-height: 200px;
-
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
 .title h2 {
-    margin: 0px
-}
-
-.author{
-    color: rgba(0, 0, 0, 0.6)
+    margin: 0px;
 }
 
 .author h3 {
-    margin: 0px
+    color: rgba(0, 0, 0, 0.6);
+    margin: 0px;
 }
 
 .container{
@@ -170,7 +147,6 @@ svg {
 .input-container input{
     border: none;
     outline: none;
-
     border-bottom: 1px solid black;
 }
 

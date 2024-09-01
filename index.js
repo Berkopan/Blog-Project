@@ -1,7 +1,6 @@
 import express from "express";
 import bodyParser from "body-parser";
 import pg from "pg";
-import ejs from "ejs";
 import env from "dotenv";
 import bcrypt from "bcrypt";
 
@@ -13,7 +12,6 @@ env.config();
 const app = express();
 const port = 3000;
 const saltRounds = parseInt(process.env.SALTROUNDS);
-
 
 let user = "";
 
@@ -82,7 +80,6 @@ app.get("/login", (req, res) => {
     }
 });
 
-
 // Evaluating the login post request.
 app.post("/login", async(req, res) => {
     const email = req.body.email;
@@ -127,7 +124,7 @@ app.get("/Blogs", async (req, res) => {
 
 app.get("/myBlogs", async (req, res) => {
     if(user) {
-        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1 ORDER BY id ASC", [user.id]); 
+        const blogs = await db.query("SELECT * FROM blogs WHERE user_id=$1 ORDER BY id DESC", [user.id]); 
 
         res.render("blogs.ejs", {DATA: blogs.rows, USERNAME: user.username, BUTTON: "Blogs"});// Rendering blogs which has written by the user from database. 
     } else {
@@ -150,7 +147,6 @@ app.get("/create", (req, res) => {
     
 });
 
-
 // Evaluating the create post request.
 app.post("/create", async (req, res) => {
     const title = req.body.title;
@@ -163,7 +159,6 @@ app.post("/create", async (req, res) => {
 
     res.redirect("/Blogs");
 });
-
 
 // Evaluating the edit request.
 app.post("/edit", (req, res) => {
@@ -178,7 +173,6 @@ app.post("/edit", (req, res) => {
     }
 })
 
-
 // Evaluating the edit post request.
 app.post("/editPost", async (req, res) => {
     const title = req.body.title;
@@ -192,11 +186,9 @@ app.post("/editPost", async (req, res) => {
     }
 });
 
-
 // Deleting a post.
 app.post("/delete", async (req, res) => {
     const id = req.body.id;
-
     try {
         await db.query("DELETE FROM blogs WHERE id = $1", [id]); // Deleting the post from database.
 
@@ -205,7 +197,6 @@ app.post("/delete", async (req, res) => {
         console.log("Error while deleting blog: " + error);
     }
 });
-
 
 // Catching possible 404 errors.
 app.get('*', function(req, res){
