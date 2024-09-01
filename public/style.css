@@ -185,3 +185,17 @@ svg {
     font-size: xx-small;
     margin: 0px;
 }
+
+.edit-btn, .delete-btn {
+    margin-right: 10px;
+    width: auto;
+    margin-top: 5px;
+    display: inline;
+    float: left;
+    background: none;
+    border: none;
+}
+
+.edit-btn:hover, .delete-btn:hover {
+    transform: scale(1.2);
+}
